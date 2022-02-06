@@ -51,17 +51,17 @@ BLOODS = ["A", "B", "O", "AB"]
 ZODIACS = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
 
 
-def _read_txt(txt_path: Path) -> List[str]:
-    assert txt_path.exists(), f"{txt_path} does not exists !"
+def _read_txt(input_txt_path: Path) -> List[str]:
+    assert input_txt_path.exists(), f"{txt_path} does not exists !"
     res = []
-    with open(txt_path, "r") as f:
+    with open(input_txt_path, "r") as f:
         for word in f.readlines():
             res.append(word.replace("\n", ""))
     return res
 
 
-def _write_txt(txt_path: Path, rows: List[List[Union[int, str]]]) -> None:
-    with open(output_txt, "w") as f:
+def _write_txt(output_txt_path: Path, rows: List[List[Union[int, str]]]) -> None:
+    with open(output_txt_path, "w") as f:
         for row in rows:
             f.write(row)
 
