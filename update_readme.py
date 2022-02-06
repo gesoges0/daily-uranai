@@ -11,7 +11,7 @@ if __name__ == '__main__':
     
     # 本日を取得
     d = datetime.datetime.now().strftime('%Y年%m月%d日')
-    today_txt = f'### {d}の運勢ランキングTOP10\n'
+    today_txt = f'### {d}の運勢ランキングTOP10'
 
     # output.txtを読み込み10位までの運勢を取得
     results = []
@@ -27,8 +27,8 @@ if __name__ == '__main__':
     rows.append(README_TITLE)
     for i in range(2):
         rows.append(NEW_LINE)
-    rows.append(today_txt + '\n')
+    rows.append(today_txt)
     for result in results:
-        rows.append(result + '\n')
+        rows.append(result + '<br>')
     _write_txt(readme_md_path, rows)
 
