@@ -27,7 +27,7 @@ if __name__ == '__main__':
     rows.append(README_TITLE)
     for i in range(2):
         rows.append(NEW_LINE)
-    rows.append(today_txt)
+    rows.append(today_txt + '\n')
     for result in results:
         rows.append(result + '<br>')
     _write_txt(readme_md_path, rows)
