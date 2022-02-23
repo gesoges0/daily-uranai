@@ -1,21 +1,35 @@
-from typing import List, Tuple, Union
-import csv
-from pathlib import Path
-from dataclasses import dataclass
 import random
+from dataclasses import dataclass
+from pathlib import Path
+from typing import List, Tuple, Union
+
+from attribute import Blood, BloodEnum, Sign, SignEnum, Zodiac, ZodiacEnum
 
 
 @dataclass
 class Unsei:
-    sign: str
-    blood: str
-    zodiac: str
+    sign: Sign
+    blood: Blood
+    zodiac: Zodiac
+    _random_numbers: Tuple[int, int, int] = None
     _rank: int = None
     _rucky_item: str = None
 
+    def __post_init__(self):
+        # ソートの対象となる乱数を生成(重複がありうるので3重タプルにする)
+        self._random_numbers = (
+            random.randint(1, 10000),
+            random.randint(1, 10000),
+            random.randint(1, 10000),
+        )
+
+    @property
+    def random_numbers(self):
+        return self._random_numbers
+
     @property
     def rank(self):
-        return _rank
+        return self._rank
 
     @rank.setter
     def rank(self, rank):
@@ -30,29 +44,11 @@ class Unsei:
         self._rucky_item = item
 
     def __repr__(self):
-        return f"{self._rank}位\t{self.sign}座 x {self.zodiac}年 x {self.blood}型\t{self.rucky_item}\n"
-
-
-SIGNS = [
-    "おひつじ",
-    "おうし",
-    "ふたご",
-    "かに",
-    "しし",
-    "おとめ",
-    "てんびん",
-    "さそり",
-    "いて",
-    "やぎ",
-    "みずがめ",
-    "うお",
-]
-BLOODS = ["A", "B", "O", "AB"]
-ZODIACS = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+        return f"{self._rank}位\t{self.sign.get_name()}座 x {self.zodiac.get_name()}年 x {self.blood.get_name()}型\t{self.rucky_item}\n"
 
 
 def _read_txt(input_txt_path: Path) -> List[str]:
-    assert input_txt_path.exists(), f"{txt_path} does not exists !"
+    assert input_txt_path.exists(), f"{input_txt_path} does not exists !"
     res = []
     with open(input_txt_path, "r") as f:
         for word in f.readlines():
@@ -66,52 +62,35 @@ def _write_txt(output_txt_path: Path, rows: List[List[Union[int, str]]]) -> None
             f.write(row)
 
 
-def _get_rucky_item_index(n: int, m: int) -> Tuple[int, int]:
-    """
-    return (a, b) s.t. a in [0,n), b in [0,m)
-    """
-    a = random.randint(0, n - 1)
-    b = random.randint(0, m - 1)
-    return (a, b)
-
-
 if __name__ == "__main__":
+
+    # 名詞, 形容詞の読み込み
     nouns_path = Path("./data/noun.txt")
     adjectives_path = Path("./data/adjective.txt")
-
-    # 名詞, 形容詞読み込み
     nouns: List[str] = _read_txt(nouns_path)
     adjectives: List[str] = _read_txt(adjectives_path)
 
-    # 12 x 12 x 4 = 576個分の組合せを用意
-    # (形容詞リストのインデックス, 名詞リストのインデックス) のリストを用意
-    rucky_item_indices = set()
-    for i in range(576):
-        while True:
-            rucky_item_index: Tuple[int, int] = _get_rucky_item_index(
-                len(nouns), len(adjectives)
-            )
-            if rucky_item_index not in rucky_item_indices:
-                rucky_item_indices.add(rucky_item_index)
-                break
-    rucky_item_indices = random.sample(
-        list(rucky_item_indices), len(rucky_item_indices)
-    )
-
     # 運勢一覧を初期化
     unseis = []
-    for sign in SIGNS:
-        for blood in BLOODS:
-            for zodiac in ZODIACS:
-                unsei = Unsei(sign=sign, blood=blood, zodiac=zodiac)
+    for sign_enum in SignEnum:
+        for blood_enum in BloodEnum:
+            for zodiac_enum in ZodiacEnum:
+                sign = Sign(sign_enum)
+                blood = Blood(blood_enum)
+                zodiac = Zodiac(zodiac_enum)
+                unsei = Unsei(sign, blood, zodiac)
                 unseis.append(unsei)
 
-    # rankingとrucky_itemを決定
-    unseis = random.sample(unseis, len(unseis))
-    for i in range(len(unseis)):
-        unseis[i].rank = i + 1
-        noun_index, adjective_index = rucky_item_indices[i]
-        unseis[i].rucky_item = f"{adjectives[adjective_index]}{nouns[noun_index]}"
+    # 運勢一覧をソートしてランク付け
+    unseis.sort(key=lambda u: u.random_numbers)
+    for i, unsei in enumerate(unseis):
+        unsei.rank = i + 1
+
+    # ラッキーアイテムを付与
+    for i, unsei in enumerate(unseis):
+        index_noun = random.randint(0, len(nouns)-1)
+        index_adjective = random.randint(0, len(adjectives)-1)
+        unsei.rucky_item = f"{adjectives[index_adjective]}{nouns[index_noun]}"
 
     # 出力
     output_txt = Path("output.txt")
