@@ -6,18 +6,18 @@ from typing import NamedTuple
 ZODIACS = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
 BLOODS = ["A", "B", "O", "AB"]
 SIGNS = [
-    "おひつじ座",
-    "おうし座",
-    "ふたご座",
-    "かに座",
-    "しし座",
-    "おとめ座",
-    "てんびん座",
-    "さそり座",
-    "いて座",
-    "やぎ座",
-    "みずがめ座",
-    "うお座",
+    "おひつじ",
+    "おうし",
+    "ふたご",
+    "かに",
+    "しし",
+    "おとめ",
+    "てんびん",
+    "さそり",
+    "いて",
+    "やぎ",
+    "みずがめ",
+    "うお",
 ]
 IMG_ROOT = Path("imgs")
 
@@ -64,37 +64,59 @@ class SignEnum(Enum):
 class Zodiac:
     no: ZodiacEnum
     path: Path = None
+    path_gh: str = None
 
     def __post_init__(self):
         self.path = next(
             (IMG_ROOT / "eto").glob(f"eto_mark{self.no.value + 1 :02}_*png")
         )
+        self.path_gh = "<img src='" + str(self.path) + "'>"
 
     def get_name(self):
         return ZODIACS[self.no.value]
+
+
+    @classmethod
+    def get_zodiac_by_string(cls, s: str):
+        zodiac_enum = ZodiacEnum(ZODIACS.index(s))
+        return Zodiac(zodiac_enum)
 
 
 @dataclass
 class Blood:
     no: BloodEnum
     path: Path = None
+    path_gh: str = None
 
     def __post_init__(self):
         self.path = IMG_ROOT / f"blood/ketsuekigata_{(self.no.name).lower()}.png"
+        self.path_gh = "<img src='" + str(self.path) + "'>"
 
     def get_name(self):
         return BLOODS[self.no.value]
+
+    @classmethod
+    def get_blood_by_string(cls, s: str):
+        blood_enum = BloodEnum(BLOODS.index(s))
+        return Blood(blood_enum)
 
 
 @dataclass
 class Sign:
     no: SignEnum
     path: Path = None
+    path_gh: str = None
 
     def __post_init__(self):
         self.path = next(
             (IMG_ROOT / "sign").glob(f"seiza_mark{self.no.value + 1 :02}_*.png")
         )
+        self.path_gh = "<img src='" + str(self.path ) + "'>"
 
     def get_name(self):
         return SIGNS[self.no.value]
+
+    @classmethod
+    def get_sign_by_string(cls, s: str):
+        sign_enum = SignEnum(SIGNS.index(s))
+        return Sign(sign_enum)

@@ -1,4 +1,15 @@
 # uranai-forecast
 
-### 2022年02月28日の運勢ランキングTOP10
-1位	かに座座 x 未年 x AB型	たわいない針<br>2位	かに座座 x 戌年 x A型	遠いコンサート<br>3位	しし座座 x 未年 x AB型	おかしい手<br>4位	てんびん座座 x 午年 x B型	可愛い角<br>5位	てんびん座座 x 戌年 x B型	難しい僕<br>6位	しし座座 x 辰年 x AB型	丸い意味<br>7位	おうし座座 x 亥年 x O型	図々しい店<br>8位	おひつじ座座 x 未年 x O型	卑しい国連<br>9位	さそり座座 x 酉年 x A型	低いローマ字<br>10位	みずがめ座座 x 子年 x B型	遠い卵<br>
+### 2022年03月02日の運勢ランキングTOP10
+|星座|干支|血液型|
+|-----------|-----------|-----------|
+|<img src='imgs/sign/seiza_mark05_shishi.png'>|<img src='imgs/eto/eto_mark08_hitsuji.png'>|<img src='imgs/blood/ketsuekigata_o.png'>|
+|<img src='imgs/sign/seiza_mark02_oushi.png'>|<img src='imgs/eto/eto_mark11_inu.png'>|<img src='imgs/blood/ketsuekigata_b.png'>|
+|<img src='imgs/sign/seiza_mark04_kani.png'>|<img src='imgs/eto/eto_mark03_tora.png'>|<img src='imgs/blood/ketsuekigata_o.png'>|
+|<img src='imgs/sign/seiza_mark12_uo.png'>|<img src='imgs/eto/eto_mark12_inoshishi.png'>|<img src='imgs/blood/ketsuekigata_b.png'>|
+|<img src='imgs/sign/seiza_mark03_futago.png'>|<img src='imgs/eto/eto_mark11_inu.png'>|<img src='imgs/blood/ketsuekigata_o.png'>|
+|<img src='imgs/sign/seiza_mark10_yagi.png'>|<img src='imgs/eto/eto_mark01_nezumi.png'>|<img src='imgs/blood/ketsuekigata_a.png'>|
+|<img src='imgs/sign/seiza_mark07_tenbin.png'>|<img src='imgs/eto/eto_mark03_tora.png'>|<img src='imgs/blood/ketsuekigata_a.png'>|
+|<img src='imgs/sign/seiza_mark06_otome.png'>|<img src='imgs/eto/eto_mark07_uma.png'>|<img src='imgs/blood/ketsuekigata_b.png'>|
+|<img src='imgs/sign/seiza_mark10_yagi.png'>|<img src='imgs/eto/eto_mark06_hebi.png'>|<img src='imgs/blood/ketsuekigata_a.png'>|
+|<img src='imgs/sign/seiza_mark08_sasori.png'>|<img src='imgs/eto/eto_mark06_hebi.png'>|<img src='imgs/blood/ketsuekigata_ab.png'>|
