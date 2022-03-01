@@ -23,8 +23,8 @@ if __name__ == '__main__':
         results.append(row)
 
     # 出力を整形
-    new_rows = ['|星座|干支|血液型|\n', '|-----------|-----------|-----------|\n']
-    for result in results:
+    new_rows = ['|順位|星座|干支|血液型|\n', '|-----------|-----------|-----------|-----------|\n']
+    for i, result in enumerate(results):
         result = result.split('\t')[1]
         _sign, _zodiac, _blood = result.split(' x ')
         _sign = _sign.replace('座', '')
@@ -33,7 +33,7 @@ if __name__ == '__main__':
         sign, zodiac, blood = Sign.get_sign_by_string(_sign), Zodiac.get_zodiac_by_string(_zodiac), Blood.get_blood_by_string(_blood)
 
         # PATHの形に整形
-        row = f'|{sign.path_gh}|{zodiac.path_gh}|{blood.path_gh}|\n'
+        row = f'|{i+1}位|{sign.path_gh}|{zodiac.path_gh}|{blood.path_gh}|\n'
         new_rows.append(row)
         
 
