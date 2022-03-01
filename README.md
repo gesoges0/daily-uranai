@@ -13,3 +13,4 @@
 |8位|<img src='imgs/sign/small/seiza_mark06_otome.png'>|<img src='imgs/eto/small/eto_mark07_uma.png'>|<img src='imgs/blood/small/ketsuekigata_b.png'>|
 |9位|<img src='imgs/sign/small/seiza_mark10_yagi.png'>|<img src='imgs/eto/small/eto_mark06_hebi.png'>|<img src='imgs/blood/small/ketsuekigata_a.png'>|
 |10位|<img src='imgs/sign/small/seiza_mark08_sasori.png'>|<img src='imgs/eto/small/eto_mark06_hebi.png'>|<img src='imgs/blood/small/ketsuekigata_ab.png'>|
+
