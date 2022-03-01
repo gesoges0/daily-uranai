@@ -1,4 +1,16 @@
 # uranai-forecast
 
-### 2022年03月01日の運勢ランキングTOP10
-1位	てんびん座座 x 亥年 x A型	浅いレポート<br>2位	おうし座座 x 酉年 x B型	すまない台風<br>3位	みずがめ座座 x 辰年 x B型	細長い先週<br>4位	おとめ座座 x 寅年 x AB型	黄色い足<br>5位	みずがめ座座 x 亥年 x A型	硬いキャッシュカード<br>6位	いて座座 x 戌年 x A型	悩ましい土曜日<br>7位	おとめ座座 x 亥年 x A型	甚だしい北<br>8位	やぎ座座 x 酉年 x B型	粗いタクシー<br>9位	しし座座 x 戌年 x O型	かっこいい専門<br>10位	いて座座 x 卯年 x AB型	可愛いホッチキス<br>
+### 2022年03月02日の運勢ランキングTOP10
+|順位|星座|干支|血液型|
+|-----------|-----------|-----------|-----------|
+|1位|<img src='imgs/sign/small/seiza_mark05_shishi.png'>|<img src='imgs/eto/small/eto_mark08_hitsuji.png'>|<img src='imgs/blood/small/ketsuekigata_o.png'>|
+|2位|<img src='imgs/sign/small/seiza_mark02_oushi.png'>|<img src='imgs/eto/small/eto_mark11_inu.png'>|<img src='imgs/blood/small/ketsuekigata_b.png'>|
+|3位|<img src='imgs/sign/small/seiza_mark04_kani.png'>|<img src='imgs/eto/small/eto_mark03_tora.png'>|<img src='imgs/blood/small/ketsuekigata_o.png'>|
+|4位|<img src='imgs/sign/small/seiza_mark12_uo.png'>|<img src='imgs/eto/small/eto_mark12_inoshishi.png'>|<img src='imgs/blood/small/ketsuekigata_b.png'>|
+|5位|<img src='imgs/sign/small/seiza_mark03_futago.png'>|<img src='imgs/eto/small/eto_mark11_inu.png'>|<img src='imgs/blood/small/ketsuekigata_o.png'>|
+|6位|<img src='imgs/sign/small/seiza_mark10_yagi.png'>|<img src='imgs/eto/small/eto_mark01_nezumi.png'>|<img src='imgs/blood/small/ketsuekigata_a.png'>|
+|7位|<img src='imgs/sign/small/seiza_mark07_tenbin.png'>|<img src='imgs/eto/small/eto_mark03_tora.png'>|<img src='imgs/blood/small/ketsuekigata_a.png'>|
+|8位|<img src='imgs/sign/small/seiza_mark06_otome.png'>|<img src='imgs/eto/small/eto_mark07_uma.png'>|<img src='imgs/blood/small/ketsuekigata_b.png'>|
+|9位|<img src='imgs/sign/small/seiza_mark10_yagi.png'>|<img src='imgs/eto/small/eto_mark06_hebi.png'>|<img src='imgs/blood/small/ketsuekigata_a.png'>|
+|10位|<img src='imgs/sign/small/seiza_mark08_sasori.png'>|<img src='imgs/eto/small/eto_mark06_hebi.png'>|<img src='imgs/blood/small/ketsuekigata_ab.png'>|
+

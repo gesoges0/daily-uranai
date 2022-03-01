@@ -1,6 +1,7 @@
 from uranai import _read_txt, _write_txt
 import datetime
 from pathlib import Path
+from attribute import Sign, Zodiac, Blood
 
 
 README_TITLE = '# uranai-forecast'
@@ -21,14 +22,30 @@ if __name__ == '__main__':
             break
         results.append(row)
 
+    # 出力を整形
+    new_rows = ['|順位|星座|干支|血液型|\n', '|-----------|-----------|-----------|-----------|\n']
+    for i, result in enumerate(results):
+        result = result.split('\t')[1]
+        _sign, _zodiac, _blood = result.split(' x ')
+        _sign = _sign.replace('座', '')
+        _zodiac = _zodiac.replace('年', '')
+        _blood = _blood.replace('型', '').upper()
+        sign, zodiac, blood = Sign.get_sign_by_string(_sign), Zodiac.get_zodiac_by_string(_zodiac), Blood.get_blood_by_string(_blood)
+
+        # PATHの形に整形
+        row = f'|{i+1}位|{sign.path_gh}|{zodiac.path_gh}|{blood.path_gh}|\n'
+        new_rows.append(row)
+        
+
     # README.mdに更新情報を書き込み
     readme_md_path = Path('README.md')
     rows = []
     rows.append(README_TITLE)
     for i in range(2):
         rows.append(NEW_LINE)
-    rows.append(today_txt + '\n')
-    for result in results:
-        rows.append(result + '<br>')
+    rows.append(today_txt)
+    rows.append(NEW_LINE)
+    for row in new_rows:
+        rows.append(row)
     _write_txt(readme_md_path, rows)
 
