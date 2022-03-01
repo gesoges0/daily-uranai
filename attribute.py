@@ -70,7 +70,7 @@ class Zodiac:
         self.path = next(
             (IMG_ROOT / "eto").glob(f"eto_mark{self.no.value + 1 :02}_*png")
         )
-        self.path_gh = "<img src='" + str(self.path).split('/')[0] + '/small/' + '/'.join(str(self.path).split('/')[1:]) + "'>"
+        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
 
     def get_name(self):
         return ZODIACS[self.no.value]
@@ -90,7 +90,7 @@ class Blood:
 
     def __post_init__(self):
         self.path = IMG_ROOT / f"blood/ketsuekigata_{(self.no.name).lower()}.png"
-        self.path_gh = "<img src='" + str(self.path).split('/')[0] + '/small/' + '/'.join(str(self.path).split('/')[1:]) + "'>"
+        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
 
     def get_name(self):
         return BLOODS[self.no.value]
@@ -111,7 +111,7 @@ class Sign:
         self.path = next(
             (IMG_ROOT / "sign").glob(f"seiza_mark{self.no.value + 1 :02}_*.png")
         )
-        self.path_gh = "<img src='" + str(self.path).split('/')[0] + '/small/' + '/'.join(str(self.path).split('/')[1:]) + "'>"
+        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
 
     def get_name(self):
         return SIGNS[self.no.value]
