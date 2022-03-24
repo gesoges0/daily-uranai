@@ -1,7 +1,7 @@
 name: update readme:w
 on:
   schedule:
-    - cron: "* 3 * * *" # 午前0時に実行(UTC基準なので9時間引く)
+    - cron: "0 3 * * *" # 午前0時に実行(UTC基準なので9時間引く)
   workflow_dispatch:
 jobs:
   readme:
