@@ -15,6 +15,7 @@
 |10位|<img src='imgs/sign/small/seiza_mark07_tenbin.png'>|<img src='imgs/eto/small/eto_mark03_tora.png'>|<img src='imgs/blood/small/ketsuekigata_ab.png'>|辛い（からい）店|
 
 ### 全順位
+Ctrl+F で検索してみてね！
 |順位|星座x干支x血液型|ラッキーアイテム|
 |-----------|-----------|-----------|
 |1位|いて座 x 丑年 x A型|意地悪い体育館|

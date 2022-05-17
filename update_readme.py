@@ -53,6 +53,7 @@ if __name__ == '__main__':
     # その他の順位も書き込み
     rows.append(NEW_LINE)
     rows.append('### 全順位\n')
+    rows.append('Ctrl+F で検索してみてね！\n')
     rows.append('|順位|星座x干支x血液型|ラッキーアイテム|\n')
     rows.append('|-----------|-----------|-----------|\n')
     for row in _read_txt(output_txt_path):
