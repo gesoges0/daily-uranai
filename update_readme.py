@@ -49,5 +49,16 @@ if __name__ == '__main__':
     rows.append(NEW_LINE)
     for row in new_rows:
         rows.append(row)
+    
+    # その他の順位も書き込み
+    rows.append(NEW_LINE)
+    rows.append('### 全順位\n')
+    rows.append('|順位|星座x干支x血液型|ラッキーアイテム|\n')
+    rows.append('|-----------|-----------|-----------|\n')
+    for row in _read_txt(output_txt_path):
+        rank, result, item = row.replace('\n', '').split('\t')
+        rows.append(f'|{rank}|{result}|{item}|\n')
+
     _write_txt(readme_md_path, rows)
 
+    
