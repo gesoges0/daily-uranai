@@ -18,7 +18,7 @@ if __name__ == '__main__':
     results = []
     output_txt_path = Path('output.txt')
     for i, row in enumerate(_read_txt(output_txt_path)):
-        if i == 10:
+        if i == 3:
             break
         results.append(row)
 
