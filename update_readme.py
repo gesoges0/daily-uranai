@@ -4,7 +4,7 @@ from pathlib import Path
 from attribute import Sign, Zodiac, Blood
 
 
-README_TITLE = '# uranai-forecast'
+README_TITLE = '# daily-uranai'
 NEW_LINE = '\n'
 
 
