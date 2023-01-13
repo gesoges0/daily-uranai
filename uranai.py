@@ -88,8 +88,8 @@ if __name__ == "__main__":
 
     # ラッキーアイテムを付与
     for i, unsei in enumerate(unseis):
-        index_noun = random.randint(0, len(nouns)-1)
-        index_adjective = random.randint(0, len(adjectives)-1)
+        index_noun = random.randint(0, len(nouns) - 1)
+        index_adjective = random.randint(0, len(adjectives) - 1)
         unsei.rucky_item = f"{adjectives[index_adjective]}{nouns[index_noun]}"
 
     # 出力

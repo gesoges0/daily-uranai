@@ -1,122 +1,115 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple
 
-ZODIACS = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-BLOODS = ["A", "B", "O", "AB"]
-SIGNS = [
-    "おひつじ",
-    "おうし",
-    "ふたご",
-    "かに",
-    "しし",
-    "おとめ",
-    "てんびん",
-    "さそり",
-    "いて",
-    "やぎ",
-    "みずがめ",
-    "うお",
-]
+from utils import csv_to_dict
+
 IMG_ROOT = Path("imgs")
 
-
-class ZodiacEnum(Enum):
-    # ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
-    NE = 0
-    USHI = 1
-    TORA = 2
-    U = 3
-    TATSU = 4
-    MI = 5
-    UMA = 6
-    HITSUJI = 7
-    SARU = 8
-    TORI = 9
-    INU = 10
-    I = 11
+eto_name_by_eto_enum: dict = csv_to_dict(Path("attribute/eto.csv"))
+ketsuekigata_name_by_ketsuekigata_enum: dict = csv_to_dict(
+    Path("attribute/ketsuekigata.csv")
+)
+seiza_name_by_seiza_enum: dict = csv_to_dict(Path("attribute/seiza.csv"))
 
 
-class BloodEnum(Enum):
-    A = 0
-    B = 1
-    O = 2
-    AB = 3
+
+class EtoEnum(Enum):
+    ne = 0
+    ushi = 1
+    tora = 2
+    u = 3
+    tatsu = 4
+    mi = 5
+    uma = 6
+    hitsuji = 7
+    saru = 8
+    tori = 9
+    inu = 10
+    i = 11
 
 
-class SignEnum(Enum):
-    OHITSUJI = 0
-    OUSHI = 1
-    HUTAGO = 2
-    KANI = 3
-    SHISHI = 4
-    OTOME = 5
-    TENBIN = 6
-    SASORI = 7
-    ITE = 8
-    YAGI = 9
-    MIZUGAME = 10
-    UO = 11
+class KetsuekigataEnum(Enum):
+    a = 0
+    b = 1
+    o = 2
+    ab = 3
 
 
-@dataclass
-class Zodiac:
-    no: ZodiacEnum
-    path: Path = None
-    path_gh: str = None
+class SeizaEnum(Enum):
+    ohitsuji = 0
+    oushi = 1
+    futago = 2
+    kani = 3
+    shishi = 4
+    otome = 5
+    tenbin = 6
+    sasori = 7
+    ite = 8
+    yagi = 9
+    mizugame = 10
+    uo = 11
 
-    def __post_init__(self):
-        self.path = next(
-            (IMG_ROOT / "eto").glob(f"eto_mark{self.no.value + 1 :02}_*png")
-        )
-        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
 
-    def get_name(self):
-        return ZODIACS[self.no.value]
-
+@dataclass(frozen=True)
+class Base(ABC):
+    path: Path
+    # path_for_github: str
 
     @classmethod
-    def get_zodiac_by_string(cls, s: str):
-        zodiac_enum = ZodiacEnum(ZODIACS.index(s))
-        return Zodiac(zodiac_enum)
+    @abstractmethod
+    def from_enum(self, e: Enum):
+        raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        raise NotImplementedError()
+
+    # def get_path_for_github(self) -> str:
+    #     # for github readme markdown path
+    #     return ""
 
 
-@dataclass
-class Blood:
-    no: BloodEnum
-    path: Path = None
-    path_gh: str = None
-
-    def __post_init__(self):
-        self.path = IMG_ROOT / f"blood/ketsuekigata_{(self.no.name).lower()}.png"
-        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
-
-    def get_name(self):
-        return BLOODS[self.no.value]
-
-    @classmethod
-    def get_blood_by_string(cls, s: str):
-        blood_enum = BloodEnum(BLOODS.index(s))
-        return Blood(blood_enum)
-
-
-@dataclass
-class Sign:
-    no: SignEnum
-    path: Path = None
-    path_gh: str = None
-
-    def __post_init__(self):
-        self.path = next(
-            (IMG_ROOT / "sign").glob(f"seiza_mark{self.no.value + 1 :02}_*.png")
-        )
-        self.path_gh = "<img src='" + '/'.join(str(self.path).split('/')[:2]) + '/small/' + '/'.join(str(self.path).split('/')[2:]) + "'>"
-
-    def get_name(self):
-        return SIGNS[self.no.value]
+@dataclass(frozen=True)
+class Eto(Base):
+    e: EtoEnum
 
     @classmethod
-    def get_sign_by_string(cls, s: str):
-        sign_enum = SignEnum(SIGNS.index(s))
-        return Sign(sign_enum)
+    def from_enum(self, e: EtoEnum):
+        path: Path = IMG_ROOT / "eto" / e.name
+        return Eto(e=e, path=path)
+
+    @property
+    def name(self) -> str:
+        return eto_name_by_eto_enum[self.e.name]
+
+
+@dataclass(frozen=True)
+class Ketsuekigata(Base):
+    e: KetsuekigataEnum
+
+    @classmethod
+    def from_enum(self, e: KetsuekigataEnum):
+        path: Path = IMG_ROOT / "ketsuekigata" / e.name
+        return Ketsuekigata(e=e, path=path)
+
+    @property
+    def name(self) -> str:
+        return ketsuekigata_name_by_ketsuekigata_enum[self.e.name]
+
+
+@dataclass(frozen=True)
+class Seiza(Base):
+    e: SeizaEnum
+
+    @classmethod
+    def from_enum(self, e: SeizaEnum):
+        path: Path = IMG_ROOT / "seiza" / e.name
+        return Seiza(e=e, path=path)
+
+    @property
+    def name(self) -> str:
+        return seiza_name_by_seiza_enum[self.e.name]
