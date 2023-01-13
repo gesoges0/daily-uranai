@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, NamedTuple, Tuple, Union
 
 from attribute import Eto, EtoEnum, Ketsuekigata, KetsuekigataEnum, Seiza, SeizaEnum
-from utils import adjectives, get_shuffled_list, nouns, write_tsv, YYYYmmdd_HHMM
+from utils import adjectives, get_shuffled_list, nouns, write_tsv, YYYYmmdd
 
 
 @dataclass(frozen=True)
@@ -49,11 +49,14 @@ class Unsei:
     def info(self) -> list[str]:
         # return f"{self.rank}位\t{self.attribute.ketsuekigata.name}型 x {self.attribute.seiza.name}座 x {self.attribute.eto.name}年\t{self.lucky_item.name}\n"
         return [
-            f"{self.rank}位",
+            f"{self.rank}位",  # 0
             f"{self.attribute.ketsuekigata.name}型",
             f"{self.attribute.seiza.name}座",
             f"{self.attribute.eto.name}年",
-            f"{self.lucky_item.name}",
+            f"{self.lucky_item.name}",  # 4
+            f"{self.attribute.ketsuekigata.github_path}",
+            f"{self.attribute.seiza.github_path}",
+            f"{self.attribute.eto.github_path}",
         ]
 
 
@@ -76,5 +79,5 @@ if __name__ == "__main__":
     ]
 
     # output
-    output_tsv: Path = Path(f"./output/ranking_{YYYYmmdd_HHMM}.tsv")
+    output_tsv: Path = Path(f"./output/ranking_{YYYYmmdd}.tsv")
     write_tsv(output_tsv, [unsei.info for unsei in unseis])

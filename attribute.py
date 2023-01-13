@@ -67,9 +67,10 @@ class Base(ABC):
     def name(self) -> str:
         raise NotImplementedError()
 
-    def get_path_for_github(self) -> str:
+    @property
+    def github_path(self) -> str:
         # for github readme markdown path
-        return ""
+        return f"<img src='{str(self.path)}'>"
 
 
 @dataclass(frozen=True)
@@ -78,7 +79,7 @@ class Eto(Base):
 
     @classmethod
     def from_enum(self, e: EtoEnum):
-        path: Path = IMG_ROOT / "eto" / e.name
+        path: Path = IMG_ROOT / "eto" / "small" / f"{e.name}.png"
         return Eto(e=e, path=path)
 
     @property
@@ -92,7 +93,7 @@ class Ketsuekigata(Base):
 
     @classmethod
     def from_enum(self, e: KetsuekigataEnum):
-        path: Path = IMG_ROOT / "ketsuekigata" / e.name
+        path: Path = IMG_ROOT / "ketsuekigata" / "small" / f"{e.name}.png"
         return Ketsuekigata(e=e, path=path)
 
     @property
@@ -106,7 +107,7 @@ class Seiza(Base):
 
     @classmethod
     def from_enum(self, e: SeizaEnum):
-        path: Path = IMG_ROOT / "seiza" / e.name
+        path: Path = IMG_ROOT / "seiza" / "small" / f"{e.name}.png"
         return Seiza(e=e, path=path)
 
     @property

@@ -1,8 +1,9 @@
+import os
 import copy
 import csv
 import random
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Any, TypeVar, Iterator
 import datetime
 
 T = TypeVar("T")
@@ -11,11 +12,11 @@ T = TypeVar("T")
 def chcek_path_exists(func):
     def check(*args):
         for arg in args:
-            if type(arg) == Path:
-                print("-" * 30)
-                print(arg)
-                # assert arg.exists(), f"{arg} does not exists !"
-                print("-" * 30)
+            if os.path.splitext(arg)[-1] in [".txt", ".tsv"]:
+                if not Path(arg).exists():
+                    print("-" * 30)
+                    print(f"{arg} does not exists!")
+                    print("-" * 30)
         return func(*args)
 
     return check
@@ -35,9 +36,9 @@ def write_txt(txt_path: Path, rows: list[str]) -> None:
 
 
 @chcek_path_exists
-def read_tsv(tsv_path: Path) -> list[list[str]]:
+def read_tsv(tsv_path: Path) -> Iterator[list[str]]:
     with open(tsv_path, "r") as f:
-        for row in csv.reader(f, lineterminator="\t"):
+        for row in csv.reader(f, delimiter="\t"):
             yield row
 
 
@@ -67,4 +68,4 @@ adjectives_path: Path = Path("./data/adjective.txt")
 nouns: list[str] = read_txt(nouns_path)
 adjectives: list[str] = read_txt(adjectives_path)
 japanese_d: str = datetime.datetime.now().strftime("%Y年%m月%d日")
-YYYYmmdd_HHMM: str = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+YYYYmmdd: str = datetime.datetime.now().strftime("%Y%m%d")

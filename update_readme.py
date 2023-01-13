@@ -2,71 +2,65 @@ import datetime
 from pathlib import Path
 
 from attribute import Eto, Ketsuekigata, Seiza
-from utils import read_txt, write_txt
+from utils import read_tsv, japanese_d, write_txt, YYYYmmdd
 
 README_TITLE: str = "# daily-uranai"
 NEW_LINE: str = "\n"
-TABLE_HEADER: str = "|順位|星座|干支|血液型|ラッキーアイテム|"
+TABLE_HEADER: str = "|順位|血液型|星座|干支|ラッキーアイテム|"
 TABLE_HR: str = "|-----------|-----------|-----------|-----------|-----------|"
+RANKING_TITLE: str = "#### 全順位"
+RANKING_ADVISE: str = "Ctrl+Fで検索してね"
 
 if __name__ == "__main__":
 
     # info
-    ranking_txt: Path = Path("output.txt")
+    ranking_tsv: Path = Path(f"output/ranking_{YYYYmmdd}.tsv")
 
     # get today
-
-    today_txt = f"### {d}の運勢ランキングTOP10"
+    TOP: int = 3
+    TABLE_TITLE: str = f"### {japanese_d}の運勢ランキングTOP{TOP}"
 
     # read output.txt and store best 3 to list
-    bast3: list[list[str]] = []
+    best3: list[list[str]] = [
+        unsei_info for unsei_info in list(read_tsv(ranking_tsv))[:TOP]
+    ]
 
     # arrange output
     readme_txts: list[str] = [
-        TABLE_HEADER + NEW_LINE,
-        TABLE_HR + NEW_LINE,
-        table_row in table_row in
+        README_TITLE + NEW_LINE,
+        NEW_LINE,
     ]
 
-    # 出力を整形
-    new_rows = []
-    for i, result in enumerate(results):
+    table_txts: list[str] = [
+        TABLE_TITLE + NEW_LINE,
+        TABLE_HEADER + NEW_LINE,
+        TABLE_HR + NEW_LINE,
+    ]
 
-        _ = result.split("\t")[1]
-        racky_item = result.split("\t")[2]
-        _sign, _zodiac, _blood = _.split(" x ")
-        _sign = _sign.replace("座", "")
-        _zodiac = _zodiac.replace("年", "")
-        _blood = _blood.replace("型", "").upper()
-        sign, zodiac, blood = (
-            Sign.get_sign_by_string(_sign),
-            Zodiac.get_zodiac_by_string(_zodiac),
-            Blood.get_blood_by_string(_blood),
-        )
+    table_rows: list[str] = [
+        f"|{best[0]}|{best[5]}|{best[6]}|{best[7]}|{best[4]}|{NEW_LINE}"
+        for best in best3
+    ]
 
-        # PATHの形に整形
-        row = f"|{i+1}位|{sign.path_gh}|{zodiac.path_gh}|{blood.path_gh}|{racky_item}|\n"
-        new_rows.append(row)
+    table_txts += table_rows
 
-    # README.mdに更新情報を書き込み
-    readme_md_path = Path("README.md")
-    rows = []
-    rows.append(README_TITLE)
-    for i in range(2):
-        rows.append(NEW_LINE)
-    rows.append(today_txt)
-    rows.append(NEW_LINE)
-    for row in new_rows:
-        rows.append(row)
+    readme_txts += table_txts
 
-    # その他の順位も書き込み
-    rows.append(NEW_LINE)
-    rows.append("### 全順位\n")
-    rows.append("Ctrl+F で検索してみてね！\n")
-    rows.append("|順位|星座x干支x血液型|ラッキーアイテム|\n")
-    rows.append("|-----------|-----------|-----------|\n")
-    for row in _read_txt(output_txt_path):
-        rank, result, item = row.replace("\n", "").split("\t")
-        rows.append(f"|{rank}|{result}|{item}|\n")
+    readme_txts += [NEW_LINE]
 
-    _write_txt(readme_md_path, rows)
+    ranking_txts: list[str] = [
+        RANKING_TITLE + NEW_LINE,
+        RANKING_ADVISE + NEW_LINE,
+    ]
+
+    rankings: list[str] = [
+        f"|{ranking[0]}|{ranking[1]}|{ranking[2]}|{ranking[3]}|{ranking[4]}|{NEW_LINE}"
+        for ranking in read_tsv(ranking_tsv)
+    ]
+
+    ranking_txts += rankings
+
+    readme_txts += ranking_txts
+
+    write_txt(Path("README2.md"), readme_txts)
+
