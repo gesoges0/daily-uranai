@@ -1,98 +1,83 @@
 import random
+from collections import deque
 from dataclasses import dataclass
+from itertools import product
 from pathlib import Path
-from typing import List, Tuple, Union
+from typing import List, NamedTuple, Tuple, Union
 
-from attribute import Blood, BloodEnum, Sign, SignEnum, Zodiac, ZodiacEnum
+from attribute import Eto, EtoEnum, Ketsuekigata, KetsuekigataEnum, Seiza, SeizaEnum
+from utils import adjectives, get_shuffled_list, nouns, write_tsv, YYYYmmdd
 
 
-@dataclass
+@dataclass(frozen=True)
+class LuckyItem:
+    """
+    (noun, adjective) word
+    """
+
+    noun: str
+    adjective: str
+
+    @classmethod
+    def generate(cls):
+        noun: str = nouns[random.randint(0, len(nouns) - 1)]
+        adjective: str = adjectives[random.randint(0, len(adjectives) - 1)]
+        return LuckyItem(noun, adjective)
+
+    @property
+    def name(self) -> str:
+        return f"{self.adjective}{self.noun}"
+
+
+class Attribute(NamedTuple):
+    eto: Eto
+    ketsuekigata: Ketsuekigata
+    seiza: Seiza
+
+
+@dataclass(frozen=True)
 class Unsei:
-    sign: Sign
-    blood: Blood
-    zodiac: Zodiac
-    _random_numbers: Tuple[int, int, int] = None
-    _rank: int = None
-    _rucky_item: str = None
+    """
+    (eto, ketusekigata, seiza)
+    """
 
-    def __post_init__(self):
-        # ソートの対象となる乱数を生成(重複がありうるので3重タプルにする)
-        self._random_numbers = (
-            random.randint(1, 10000),
-            random.randint(1, 10000),
-            random.randint(1, 10000),
-        )
+    attribute: Attribute
+    lucky_item: LuckyItem
+    rank: int
 
     @property
-    def random_numbers(self):
-        return self._random_numbers
-
-    @property
-    def rank(self):
-        return self._rank
-
-    @rank.setter
-    def rank(self, rank):
-        self._rank = rank
-
-    @property
-    def rucky_item(self):
-        return self._rucky_item
-
-    @rucky_item.setter
-    def rucky_item(self, item):
-        self._rucky_item = item
-
-    def __repr__(self):
-        return f"{self._rank}位\t{self.sign.get_name()}座 x {self.zodiac.get_name()}年 x {self.blood.get_name()}型\t{self.rucky_item}\n"
-
-
-def _read_txt(input_txt_path: Path) -> List[str]:
-    assert input_txt_path.exists(), f"{input_txt_path} does not exists !"
-    res = []
-    with open(input_txt_path, "r") as f:
-        for word in f.readlines():
-            res.append(word.replace("\n", ""))
-    return res
-
-
-def _write_txt(output_txt_path: Path, rows: List[List[Union[int, str]]]) -> None:
-    with open(output_txt_path, "w") as f:
-        for row in rows:
-            f.write(row)
+    def info(self) -> list[str]:
+        # return f"{self.rank}位\t{self.attribute.ketsuekigata.name}型 x {self.attribute.seiza.name}座 x {self.attribute.eto.name}年\t{self.lucky_item.name}\n"
+        return [
+            f"{self.rank}位",  # 0
+            f"{self.attribute.ketsuekigata.name}型",
+            f"{self.attribute.seiza.name}座",
+            f"{self.attribute.eto.name}年",
+            f"{self.lucky_item.name}",  # 4
+            f"{self.attribute.ketsuekigata.github_path}",
+            f"{self.attribute.seiza.github_path}",
+            f"{self.attribute.eto.github_path}",
+        ]
 
 
 if __name__ == "__main__":
 
-    # 名詞, 形容詞の読み込み
-    nouns_path = Path("./data/noun.txt")
-    adjectives_path = Path("./data/adjective.txt")
-    nouns: List[str] = _read_txt(nouns_path)
-    adjectives: List[str] = _read_txt(adjectives_path)
+    # initialize unseis
+    attributes: list[Unsei] = [
+        Attribute(
+            eto=Eto.from_enum(ee),
+            ketsuekigata=Ketsuekigata.from_enum(ke),
+            seiza=Seiza.from_enum(se),
+        )
+        for ee, ke, se in product(EtoEnum, KetsuekigataEnum, SeizaEnum)
+    ]
 
-    # 運勢一覧を初期化
-    unseis = []
-    for sign_enum in SignEnum:
-        for blood_enum in BloodEnum:
-            for zodiac_enum in ZodiacEnum:
-                sign = Sign(sign_enum)
-                blood = Blood(blood_enum)
-                zodiac = Zodiac(zodiac_enum)
-                unsei = Unsei(sign, blood, zodiac)
-                unseis.append(unsei)
+    # make ranking
+    unseis: list[Unsei] = [
+        Unsei(attribute=attribute, lucky_item=LuckyItem.generate(), rank=no + 1)
+        for no, attribute in enumerate(get_shuffled_list(attributes))
+    ]
 
-    # 運勢一覧をソートしてランク付け
-    unseis.sort(key=lambda u: u.random_numbers)
-    for i, unsei in enumerate(unseis):
-        unsei.rank = i + 1
-
-    # ラッキーアイテムを付与
-    for i, unsei in enumerate(unseis):
-        index_noun = random.randint(0, len(nouns) - 1)
-        index_adjective = random.randint(0, len(adjectives) - 1)
-        unsei.rucky_item = f"{adjectives[index_adjective]}{nouns[index_noun]}"
-
-    # 出力
-    output_txt = Path("output.txt")
-    rows = [repr(unsei) for unsei in unseis]
-    _write_txt(output_txt, rows)
+    # output
+    output_tsv: Path = Path(f"./output/ranking_{YYYYmmdd}.tsv")
+    write_tsv(output_tsv, [unsei.info for unsei in unseis])
