@@ -52,6 +52,7 @@ if __name__ == "__main__":
     ranking_txts: list[str] = [
         RANKING_TITLE + NEW_LINE,
         RANKING_ADVISE + NEW_LINE,
+        TABLE_HR_FOR_RANKING + NEW_LINE,
     ]
 
     rankings: list[str] = [
