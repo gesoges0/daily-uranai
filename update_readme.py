@@ -19,10 +19,14 @@ if __name__ == "__main__":
     today_txt = f"### {d}の運勢ランキングTOP10"
 
     # read output.txt and store best 3 to list
-    best_unsei: list[str] = [row for row in list(read_txt(ranking_txt))[3]]
+    bast3: list[list[str]] = []
 
     # arrange output
-    readme_txts: list[str] = [TABLE_HEADER + NEW_LINE, TABLE_HR + NEW_LINE]
+    readme_txts: list[str] = [
+        TABLE_HEADER + NEW_LINE,
+        TABLE_HR + NEW_LINE,
+        table_row in table_row in
+    ]
 
     # 出力を整形
     new_rows = []

@@ -28,18 +28,22 @@ def read_txt(txt_path: Path) -> list[str]:
         return [line.replace("\n", "") for line in f.readlines()]
 
 
-@chcek_path_exists
 def write_txt(txt_path: Path, rows: list[str]) -> None:
-    # assert txt_path.exists(), f"{txt_path} does not exists !"
     with open(txt_path, "w") as f:
         for row in rows:
             f.write(row)
 
 
 @chcek_path_exists
-def write_tsv(csv_path: Path, rows: list[list[str]]) -> None:
+def read_tsv(tsv_path: Path) -> list[list[str]]:
+    with open(tsv_path, "r") as f:
+        for row in csv.reader(f, lineterminator="\t"):
+            yield row
+
+
+def write_tsv(tsv_path: Path, rows: list[list[str]]) -> None:
     # assert
-    with open(csv_path, "w") as f:
+    with open(tsv_path, "w") as f:
         writer = csv.writer(f, lineterminator="\n", delimiter="\t")
         for row in rows:
             writer.writerow(row)
