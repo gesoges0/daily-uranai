@@ -2,7 +2,6 @@
 
 ### 2023年01月14日の運勢ランキングTOP3
 |順位|血液型|星座|干支|ラッキーアイテム|
-|順位|血液型x星座x干支|ラッキーアイテム|
 |-----------|-----------|-----------|-----------|-----------|
 |1位|<img src='imgs/ketsuekigata/small/ab.png'>|<img src='imgs/seiza/small/kani.png'>|<img src='imgs/eto/small/u.png'>|華々しいボールペン|
 |2位|<img src='imgs/ketsuekigata/small/o.png'>|<img src='imgs/seiza/small/ite.png'>|<img src='imgs/eto/small/mi.png'>|真ん丸いガスサービスセンター|
@@ -10,6 +9,7 @@
 
 #### 全順位
 Ctrl+Fで検索してね
+|順位|血液型x星座x干支|ラッキーアイテム|
 |-----------|-----------|-----------|
 |1位|AB型xかに座x卯年|華々しいボールペン|
 |2位|O型xいて座x巳年|真ん丸いガスサービスセンター|
