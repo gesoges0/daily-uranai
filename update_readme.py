@@ -1,32 +1,31 @@
 import datetime
 from pathlib import Path
 
-from attribute import Blood, Sign, Zodiac
-from uranai import _read_txt, _write_txt
+from attribute import Eto, Ketsuekigata, Seiza
+from utils import read_txt, write_txt
 
-README_TITLE = "# daily-uranai"
-NEW_LINE = "\n"
-
+README_TITLE: str = "# daily-uranai"
+NEW_LINE: str = "\n"
+TABLE_HEADER: str = "|順位|星座|干支|血液型|ラッキーアイテム|"
+TABLE_HR: str = "|-----------|-----------|-----------|-----------|-----------|"
 
 if __name__ == "__main__":
 
-    # 本日を取得
-    d = datetime.datetime.now().strftime("%Y年%m月%d日")
+    # info
+    ranking_txt: Path = Path("output.txt")
+
+    # get today
+
     today_txt = f"### {d}の運勢ランキングTOP10"
 
-    # output.txtを読み込み10位までの運勢を取得
-    results = []
-    output_txt_path = Path("output.txt")
-    for i, row in enumerate(_read_txt(output_txt_path)):
-        if i == 3:
-            break
-        results.append(row)
+    # read output.txt and store best 3 to list
+    best_unsei: list[str] = [row for row in list(read_txt(ranking_txt))[3]]
+
+    # arrange output
+    readme_txts: list[str] = [TABLE_HEADER + NEW_LINE, TABLE_HR + NEW_LINE]
 
     # 出力を整形
-    new_rows = [
-        "|順位|星座|干支|血液型|ラッキーアイテム|\n",
-        "|-----------|-----------|-----------|-----------|-----------|\n",
-    ]
+    new_rows = []
     for i, result in enumerate(results):
 
         _ = result.split("\t")[1]

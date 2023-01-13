@@ -15,7 +15,6 @@ ketsuekigata_name_by_ketsuekigata_enum: dict = csv_to_dict(
 seiza_name_by_seiza_enum: dict = csv_to_dict(Path("attribute/seiza.csv"))
 
 
-
 class EtoEnum(Enum):
     ne = 0
     ushi = 1
@@ -68,9 +67,9 @@ class Base(ABC):
     def name(self) -> str:
         raise NotImplementedError()
 
-    # def get_path_for_github(self) -> str:
-    #     # for github readme markdown path
-    #     return ""
+    def get_path_for_github(self) -> str:
+        # for github readme markdown path
+        return ""
 
 
 @dataclass(frozen=True)
