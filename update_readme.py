@@ -66,5 +66,5 @@ if __name__ == "__main__":
 
     readme_txts += ranking_txts
 
-    write_txt(Path("README2.md"), readme_txts)
+    write_txt(Path("README.md"), readme_txts)
 
