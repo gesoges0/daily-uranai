@@ -10,6 +10,7 @@ TABLE_HEADER: str = "|順位|血液型|星座|干支|ラッキーアイテム|"
 TABLE_HR: str = "|-----------|-----------|-----------|-----------|-----------|"
 RANKING_TITLE: str = "#### 全順位"
 RANKING_ADVISE: str = "Ctrl+Fで検索してね"
+TABLE_HR_FOR_RANKING: str = "|-----------|-----------|-----------|"
 
 if __name__ == "__main__":
 
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     ]
 
     rankings: list[str] = [
-        f"|{ranking[0]}|{ranking[1]}|{ranking[2]}|{ranking[3]}|{ranking[4]}|{NEW_LINE}"
+        f"|{ranking[0]}|{ranking[1]}x{ranking[2]}x{ranking[3]}|{ranking[4]}|{NEW_LINE}"
         for ranking in read_tsv(ranking_tsv)
     ]
 
