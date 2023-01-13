@@ -11,6 +11,7 @@ TABLE_HR: str = "|-----------|-----------|-----------|-----------|-----------|"
 RANKING_TITLE: str = "#### 全順位"
 RANKING_ADVISE: str = "Ctrl+Fで検索してね"
 TABLE_HR_FOR_RANKING: str = "|-----------|-----------|-----------|"
+TABLE_HEADER_FOR_RANKING: str = "|順位|血液型x星座x干支|ラッキーアイテム|"
 
 if __name__ == "__main__":
 
@@ -35,6 +36,7 @@ if __name__ == "__main__":
     table_txts: list[str] = [
         TABLE_TITLE + NEW_LINE,
         TABLE_HEADER + NEW_LINE,
+        TABLE_HEADER_FOR_RANKING + NEW_LINE,
         TABLE_HR + NEW_LINE,
     ]
 
@@ -52,6 +54,7 @@ if __name__ == "__main__":
     ranking_txts: list[str] = [
         RANKING_TITLE + NEW_LINE,
         RANKING_ADVISE + NEW_LINE,
+
         TABLE_HR_FOR_RANKING + NEW_LINE,
     ]
 
